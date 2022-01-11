@@ -11,13 +11,13 @@
 #define BUFSZ 1024
 
 void usage(int argc, char **argv){
-    printf("usage: %s <server IP> <server Port>\n",argv[0]);
-    printf("EXAMPLE: %s 127.0.0.1 51511\n",argv[0]);
+    printf("usage: %s <server IP> <server Port> <Message>\n",argv[0]);
+    printf("EXAMPLE: %s 127.0.0.1 51511 'Message'\n",argv[0]);
     exit(EXIT_FAILURE);
 }
 
 int main(int argc, char **argv){
-    if(argc < 3){
+    if(argc < 4){
         usage(argc, argv);
     }
 
@@ -45,18 +45,17 @@ int main(int argc, char **argv){
     printf("Connected to %s\n", addrstr);
 
 /* %%%%%% ENVIA REQUISIÇÃO PARA O SERVIDOR %%%%%% */
-
-    char buf[BUFSZ];
-    memset(buf, 0, BUFSZ);
-    printf("Message: ");
-    fgets(buf, BUFSZ-1,stdin);
-    size_t count = send(s, buf, strlen(buf)+1, 0);
-    if(count != strlen(buf)+1){
+    //char buf[BUFSZ];
+    //memset(buf, 0, BUFSZ);
+    //printf("Message: ");
+    //fgets(buf, BUFSZ-1,stdin);
+    size_t count = send(s, argv[3], strlen(argv[3])+1, 0);
+    if(count != strlen(argv[3])+1){
         logexit("send");
     }
 
 /* %%%%%% AGUARDA RESPOSTA DO SERVIDOR %%%%%% */
-
+    char buf[BUFSZ];
     memset(buf, 0, BUFSZ);
     unsigned total = 0;
     while(1){
