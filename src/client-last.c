@@ -110,19 +110,19 @@ int main(int argc, char **argv){
 
     store(listabit, msg);
 
-    size_t count = send(s, msg, strlen(msg), 0);
+    size_t count = send(s, msg, len(msg), 0);
 
     time(&sec);
     //para converter de segundos para o tempo local
     datetime = localtime(&sec);
     fprintf(arq, "[%d/%d/%d as %d:%d:%d] Mensagem Enviada\n", datetime->tm_mday, datetime->tm_mon+1, datetime->tm_year+1900, datetime->tm_hour, datetime->tm_min, datetime->tm_sec);
 
-    if(count != strlen(msg)){
+    if(count != len(msg)){
         logexit("send");
     }
 
 /* %%%%%% AGUARDA RESPOSTA DO SERVIDOR %%%%%% */
-    unsigned char buf[BUFSZ];
+    char buf[BUFSZ];
     memset(buf, 0, BUFSZ);
     unsigned total = 0;
     while(1){

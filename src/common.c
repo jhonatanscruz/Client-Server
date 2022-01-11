@@ -106,3 +106,14 @@ int server_sockaddr_init(const char* proto, const char* portstr, struct sockaddr
         return -1;
     }
 }
+
+int len(unsigned char* msg){
+
+    int count = 0;
+
+    while(msg[count] != '\0'){
+        count++;
+    }
+
+    return count;
+}
